@@ -1,31 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
-var x int
-var y string
-var z bool
+func main() {
+	type Person struct {
+		Name  string `json:name`
+		Email string `json:email`
+	}
 
-func main(){
-	//atv1()
-	atv2()
-}
+	p1 := Person{
+		Name: "Samuel Antony",
+		Email: "dev.saryio@gmail.com",
+	}
 
-func atv1(){
-	x := 42
-	y := "James Bond"
-	z := true
+	p2 := Person{
+		Name: "Foo Foo",
+		Email: "foo@foo.com",
+	}
 
-	fmt.Println(x, " ", y, " ", z)
-	fmt.Println(x)
-	fmt.Println(y)
-	fmt.Println(z)
-}
+	persons := []Person{p1, p2}
 
-func atv2(){
-	fmt.Println(x, y, z)
-}
+	rawPersons, err := json.Marshal(persons)
 
-func atv3(){
-	
+	if err != nil{
+		fmt.Println(err.Error())
+	}
+
+	fmt.Println("Antes:\n",persons)
+
+	fmt.Println("\nDepois:\n", string(rawPersons))
+
 }
